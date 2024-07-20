@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:task_bloc/pages/post_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_bloc/bloc/post_bloc.dart';
+import 'package:task_bloc/bloc/post_event.dart';
+import 'package:task_bloc/pages/home_page.dart';
 
-void main() async {
-  runApp(new MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,9 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return BlocProvider(
+      create: (context) => PostsBloc()..add(PostsInitialFetchEvent()),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+      ),
     );
   }
 }
